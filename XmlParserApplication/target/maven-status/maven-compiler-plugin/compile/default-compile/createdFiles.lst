@@ -1,0 +1,3 @@
+com\example\xmlparser\model\Person.class
+com\example\xmlparser\service\XmlParserService.class
+com\example\xmlparser\XmlParserApplication.class
