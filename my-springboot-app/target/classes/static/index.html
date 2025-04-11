@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot + JS Theme Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        /* Theme: light */
+        .light {
+            background-color: #f5f5f5;
+            color: #222;
+        }
+
+        /* Theme: dark */
+        .dark {
+            background-color: #1c1c1c;
+            color: #f0f0f0;
+        }
+
+        /* Theme: blue */
+        .blue {
+            background-color: #007acc;
+            color: #fff;
+        }
+
+        /* Theme: forest */
+        .forest {
+            background-color: #2d5939;
+            color: #e0f8e6;
+        }
+
+        /* Theme: sunset */
+        .sunset {
+            background-color: #ff5e62;
+            color: #fff1e6;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        button {
+            margin-top: 2rem;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spring Boot + JavaScript Dynamic Theme</h1>
+        <p id="message">Loading message...</p>
+        <button onclick="fetchMessage()">Reload Theme</button>
+    </div>
+
+    <script>
+        function fetchMessage() {
+            fetch('/api/message')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('message').innerText = data.message;
+
+                    // Clear existing theme classes
+                    document.body.className = '';
+
+                    // Apply new theme class
+                    if (data.theme) {
+                        document.body.classList.add(data.theme);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('message').innerText = 'Error loading message.';
+                    console.error('Fetch error:', error);
+                });
+        }
+
+        // Load on page start
+        window.onload = fetchMessage;
+    </script>
+</body>
+</html>
